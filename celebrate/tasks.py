@@ -1,6 +1,32 @@
 import frappe
 import random
 from frappe.utils import pretty_date, now
+from discord_webhook import DiscordWebhook, DiscordEmbed
+
+def notify_chat(title, color, message, attachments):
+    print(attachments)
+    try:
+        webhook = DiscordWebhook(
+            url=frappe.db.get_value('Celebrate Settings', None, 'discord_url'))
+        
+        embed = DiscordEmbed(
+            title=title, description=message, color=color)
+        for attach in attachments:
+            if str(attach['name']).strip() == '':
+                tenant_name = 'Vacant'
+            else:
+                tenant_name = str(attach['name']).strip()
+
+            if "name" in attach:
+                embed.add_embed_field(
+                    name=tenant_name, value=attach['device'])
+            else:
+                embed.add_embed_field(name='Message', value=attach['text'])
+        webhook.add_embed(embed)
+        response = webhook.execute()
+    except:
+        None
+
 
 def greet_birthday():
     greet_message('birthday')
@@ -13,10 +39,15 @@ def greet_message(type: str):
     if type == 'birthday':
         message_field = 'birthday_messages'
         field_date = 'date_of_birth'
+        title = 'Happy Birthday'
+        color = 'FFC0CB'
+        
     elif type == 'work_anniversary':
         message_field = 'work_anniversary_messages'
         field_date = 'date_of_joining'
-
+        title = 'Happy Work Anniversary'
+        color = '03b2f8'
+        
     messages = frappe.db.get_value('Celebrate Settings', None, message_field)
     messages = messages.splitlines()
     
@@ -37,6 +68,4 @@ def greet_message(type: str):
 
         pick_message = random.randint(0, len(messages) - 1)
         greeting_message = messages[pick_message].strip().replace('{name}', employee_name).replace('{years}', years)
-
-        
-        print(employee_name + ", " + greeting_message)            
+        notify_chat(title + ', ' + employee_name, color, greeting_message, [])
