@@ -1,0 +1,52 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2023-12-04 10:30:45.055587",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "birthday_messages",
+  "work_anniversary_messages",
+  "discord_url"
+ ],
+ "fields": [
+  {
+   "fieldname": "birthday_messages",
+   "fieldtype": "Text",
+   "label": "Birthday Messages"
+  },
+  {
+   "fieldname": "work_anniversary_messages",
+   "fieldtype": "Text",
+   "label": "Work Anniversary Messages"
+  },
+  {
+   "fieldname": "discord_url",
+   "fieldtype": "Data",
+   "label": "Discord URL"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "issingle": 1,
+ "links": [],
+ "modified": "2023-12-04 14:13:29.979443",
+ "modified_by": "Administrator",
+ "module": "Celebrate",
+ "name": "Celebrate Settings",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
