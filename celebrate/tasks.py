@@ -46,7 +46,7 @@ def greet_message(type: str):
         message_field = 'work_anniversary_messages'
         field_date = 'date_of_joining'
         title = 'Happy Work Anniversary'
-        color = '03b2f8'
+        color = '355E3B'
         
     messages = frappe.db.get_value('Celebrate Settings', None, message_field)
     messages = messages.splitlines()
