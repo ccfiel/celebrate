@@ -62,11 +62,13 @@ def greet_message(type: str):
     
     employees = frappe.db.sql("""select first_name, last_name, {0} from tabEmployee where status='Active' and DAY({0})={1} and MONTH({0})={2}""".format(field_date, day, month))
     for employee in employees:
+        first_name = employee[0]
+        last_name = employee[1]
+        celebrate_date = employee[2]
+        
         year_celebrate = celebrate_date.strftime('%Y')
         if year_now != year_celebrate:
-            first_name = employee[0]
-            last_name = employee[1]
-            celebrate_date = employee[2]
+
             employee_name = first_name.strip() + " " + last_name.strip()
             years = pretty_date(celebrate_date.strftime('%Y-%m-%d %H:%M:%S.%f')).replace(' ago', '')        
 
